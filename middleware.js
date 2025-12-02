@@ -4,6 +4,12 @@ const path = require("path");
 
 // Set files/paths
 const logDirectory = path.join(__dirname, "log");
+
+if (!fs.existsSync(logDirectory)) {
+  fs.mkdirSync(logDirectory, { recursive: true });
+}
+
+
 const logFile = path.join(logDirectory, "logRequests.txt");
 
 // Create a write stream (in append mode)
