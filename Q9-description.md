@@ -1,0 +1,4 @@
+<!--- Write a description of the functionality you implemented for question 9 here.  No special formatting is required; however, if desired you can use the basic markdown syntax (https://www.markdownguide.org/cheat-sheet/) and view the result by right-clicking the file and selecting 'Open Preview'. -->
+
+
+I decided to implement a profile page for users. This page also allows them to view the courses they are enrolled in. When you aren't login, nothing is different, once logged in there is a "Profile" button next to the logout button. Then, upon selecting that button, they are able to see their provided name, email, role and enrolled courses. They are also able to Browse Courses and view the course descriptions from this page.

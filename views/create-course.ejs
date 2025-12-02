@@ -1,0 +1,60 @@
+<main id="main" class="main-page">
+
+  <section class="breadcrumbs">
+    <div class="container">
+      <h2>Create New Course</h2>
+    </div>
+  </section>
+
+  <section class="container my-4">
+
+    <form action="/admin/create-course" 
+          method="POST" 
+          enctype="multipart/form-data"
+          class="mt-4">
+
+      <div class="mb-3">
+        <label class="form-label">Course Title</label>
+        <input type="text" name="title" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Summary</label>
+        <textarea name="summary" class="form-control" rows="2" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" rows="4" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input type="number" name="price" class="form-control" step="0.01" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Capacity</label>
+        <input type="number" name="capacity" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Trainer</label>
+        <select name="trainer" class="form-control" required>
+          <% trainers.forEach(t => { %>
+            <option value="<%= t._id %>"><%= t.name %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Course Image</label>
+        <input type="file" name="image" class="form-control" accept="image/*" required>
+      </div>
+
+      <button class="btn btn-primary">Create Course</button>
+
+    </form>
+
+  </section>
+</main>

@@ -1,0 +1,110 @@
+<!-- Page Title -->
+<div class="page-title" data-aos="fade">
+  <div class="heading">
+    <div class="container">
+      <div class="row d-flex justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1><%= course.title %></h1>
+          <p class="mb-0"><%= course.summary %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/courses">Courses</a></li>
+        <li class="current"><%= course.title %></li>
+      </ol>
+    </div>
+  </nav>
+</div>
+<!-- End Page Title -->
+
+<!-- Courses Course Details Section -->
+<section id="courses-course-details" class="courses-course-details section">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-lg-8">
+        <img src="/img/<%= course.image %>" class="img-fluid" alt="<%= course.title %>" />
+        <h3><%= course.title %></h3>
+        <p><%= course.description %></p>
+      </div>
+      <div class="col-lg-4">
+        <div
+          class="course-info d-flex justify-content-between align-items-center"
+        >
+          <h5>Trainer</h5>
+          <p><a href="#"><%= course.trainer.name %></a></p>
+        </div>
+
+        <div
+          class="course-info d-flex justify-content-between align-items-center"
+        >
+          <h5>Course Fee</h5>
+          <p>$<%= course.price %></p>
+        </div>
+
+        <div
+          class="course-info d-flex justify-content-between align-items-center"
+        >
+          <h5>Available Seats</h5>
+          <p><%= course.capacity - course.registrants.length %></p>
+        </div>
+
+        <div
+          class="course-info d-flex justify-content-between align-items-center"
+        >
+          <h5>Schedule</h5>
+          <p><%= course.schedule %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Courses Course Details Section -->
+
+<!-- Course Registration Section -->
+<div class="course-registration-section mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h4>Course Registration</h4>
+      <p><strong>Capacity:</strong> <%= course.capacity %></p>
+      <p><strong>Registered Students:</strong> <%= course.registrants.length %></p>
+      <p><strong>Available Seats:</strong> <%= course.capacity - course.registrants.length %></p>
+
+      <% if (!isLoggedIn) { %>
+        <a href="/login" class="btn btn-primary btn-lg">Login to Register</a>
+      <% } else { %>
+        <% 
+          const isRegistered = course.registrants.some(r => 
+            r._id.toString() === user.id
+          );
+          const isFull = course.registrants.length >= course.capacity;
+        %>
+
+        <% if (isFull && !isRegistered) { %>
+          <button class="btn btn-secondary btn-lg" disabled>Course Full</button>
+        <% } else if (isRegistered) { %>
+          <div class="alert alert-success">You are registered for this course!</div>
+          <form action="/courses/unregister/<%= course._id %>" method="POST">
+            <button type="submit" class="btn btn-danger btn-lg">Unregister from Course</button>
+          </form>
+        <% } else { %>
+          <a href="/courses/register/<%= course._id %>" class="btn btn-primary btn-lg">Register for Course</a>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Edit/Delete Button -->
+<% if (isAdmin) { %>
+  <div class="mt-4">
+    <a href="/admin/edit-course/<%= course._id %>" 
+       class="btn btn-warning w-100">
+       Edit / Delete Course
+    </a>
+  </div>
+<% } %>

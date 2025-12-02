@@ -1,0 +1,38 @@
+<form action="/admin/edit-course" method="POST" enctype="multipart/form-data">
+
+  <input type="hidden" name="id" value="<%= course._id %>">
+
+  <label>Title</label>
+  <input type="text" name="title" value="<%= course.title %>">
+
+  <label>Summary</label>
+  <textarea name="summary"><%= course.summary %></textarea>
+
+  <label>Description</label>
+  <textarea name="description"><%= course.description %></textarea>
+
+  <label>Price</label>
+  <input type="number" name="price" step="0.01" value="<%= course.price %>">
+
+  <label>Capacity</label>
+  <input type="number" name="capacity" value="<%= course.capacity %>">
+
+  <label>Trainer</label>
+  <select name="trainer">
+    <% trainers.forEach(t => { %>
+      <option value="<%= t._id %>" <%=t._id.toString()===course.trainer._id.toString() ? 'selected' : '' %> >
+        <%= t.name %>
+      </option>
+    <% }) %>
+  </select>
+
+  <label>Image (optional)</label>
+  <input type="file" name="image">
+
+  <button type="submit">Save Changes</button>
+</form>
+
+<form action="/admin/delete-course" method="POST">
+  <input type="hidden" name="id" value="<%= course._id %>">
+  <button type="submit" class="btn btn-danger mt-3">Delete Course</button>
+</form>
